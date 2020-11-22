@@ -1,3 +1,4 @@
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 import pages.HomePage;
@@ -7,6 +8,7 @@ import static org.testng.Assert.*;
 
 public class AuthorizationTest {
 
+    private WebDriver driver;
     private SignInPage signInPage;
     private HomePage homePage;
 
@@ -15,7 +17,7 @@ public class AuthorizationTest {
         return new Object[][] {
                 {"alice@yandex.ru", "AlicePassword"},
                 {"bob@gmail.com", "BobPassword"},
-                {"jack@gmail.com", "JackPassword"}
+                {"jack@gmail.com", "Jack Password"}
         };
     }
 
@@ -39,13 +41,27 @@ public class AuthorizationTest {
 
     @BeforeMethod
     public void init() {
-        ChromeDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         signInPage = new SignInPage(driver);
         homePage = new HomePage(driver);
     }
 
     @Test(dataProvider = "successful_authentication")
     public void test_successful_authentication(String email, String password) {
+        test_action(email, password);
+    }
+
+    @Test(dataProvider = "wrong_email")
+    public void test_wrong_email(String email, String password) {
+        test_action(email, password);
+    }
+
+    @Test(dataProvider = "wrong_password")
+    public void test_wrong_password(String email, String password) {
+        test_action(email, password);
+    }
+
+    private void test_action(String email, String password) {
         signInPage.open();
         assertTrue(signInPage.atPage());
         signInPage.enterEmail(email);
@@ -54,29 +70,8 @@ public class AuthorizationTest {
         assertTrue(homePage.atPage());
     }
 
-    @Test(dataProvider = "wrong_email")
-    public void test_wrong_email(String email, String password) {
-        signInPage.open();
-        assertTrue(signInPage.atPage());
-        signInPage.enterEmail(email);
-        signInPage.enterPassword(password);
-        signInPage.clickLogin();
-        assertFalse(homePage.atPage());
-    }
-
-    @Test(dataProvider = "wrong_password")
-    public void test_wrong_password(String email, String password) {
-        signInPage.open();
-        assertTrue(signInPage.atPage());
-        signInPage.enterEmail(email);
-        signInPage.enterPassword(password);
-        signInPage.clickLogin();
-        assertFalse(homePage.atPage());
-    }
-
     @AfterMethod
     public void close() {
-        signInPage.close();
-        homePage.close();
+        driver.quit();
     }
 }

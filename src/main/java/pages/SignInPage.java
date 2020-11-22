@@ -2,14 +2,13 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class SignInPage implements HTMLPage {
 
     public static final String URL = "http://localhost:9001/email";
     public static final String TITLE = "Sign In";
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public SignInPage(WebDriver driver) {
         this.driver = driver;
@@ -21,11 +20,6 @@ public class SignInPage implements HTMLPage {
 
     public boolean atPage() {
         return driver.getTitle().equals(TITLE);
-    }
-
-    @Override
-    public void close() {
-        driver.quit();
     }
 
     public void enterEmail(String email) {

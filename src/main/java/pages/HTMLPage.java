@@ -1,6 +1,6 @@
 package pages;
 
-public interface HTMLPage extends AutoCloseable {
+public interface HTMLPage {
 
     void open();
     boolean atPage();
