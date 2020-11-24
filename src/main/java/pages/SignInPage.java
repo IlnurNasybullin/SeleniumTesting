@@ -8,9 +8,12 @@ public class SignInPage implements HTMLPage {
     public static final String URL = "http://localhost:9001/email";
     public static final String TITLE = "Sign In";
 
-    private final WebDriver driver;
+    private WebDriver driver;
 
-    public SignInPage(WebDriver driver) {
+    public SignInPage() { }
+
+    @Override
+    public void init(WebDriver driver) {
         this.driver = driver;
     }
 

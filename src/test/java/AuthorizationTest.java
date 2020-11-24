@@ -42,8 +42,11 @@ public class AuthorizationTest {
     @BeforeMethod
     public void init() {
         driver = new ChromeDriver();
-        signInPage = new SignInPage(driver);
-        homePage = new HomePage(driver);
+        signInPage = new SignInPage();
+        homePage = new HomePage();
+
+        signInPage.init(driver);
+        homePage.init(driver);
     }
 
     @Test(dataProvider = "successful_authentication")

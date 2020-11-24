@@ -57,7 +57,7 @@ public class RegistrationTest {
     @DataProvider
     public static Object[][] existed_email() {
         return new Object[][] {
-                {"Kate", "alice@yandex.ru", "Kate Password"},
+                {"Kate", "alice@yandex.ru", "KatePassword"},
                 {"Bob", "bob@gmail.com", "MartinBob!"},
                 {"Clinton", "jack@gmail.com", "ClintonUSA"}
         };
@@ -75,8 +75,12 @@ public class RegistrationTest {
     @BeforeMethod
     public void initPages() {
         driver = new ChromeDriver();
-        registrationPage = new RegistrationPage(driver);
-        homePage = new HomePage(driver);
+        registrationPage = new RegistrationPage();
+        homePage = new HomePage();
+
+        registrationPage.init(driver);
+        homePage.init(driver);
+
         cachedHandler = new TestMemCachedHandler();
     }
 

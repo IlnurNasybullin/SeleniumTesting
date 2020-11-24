@@ -6,9 +6,12 @@ public class HomePage implements HTMLPage {
 
     public static final String URL = "http://localhost:9001/email/main";
     public static final String TITLE = "Main";
-    private final WebDriver driver;
+    private WebDriver driver;
 
-    public HomePage(WebDriver driver) {
+    public HomePage() { }
+
+    @Override
+    public void init(WebDriver driver) {
         this.driver = driver;
     }
 
